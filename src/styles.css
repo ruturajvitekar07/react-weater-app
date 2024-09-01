@@ -79,6 +79,15 @@ body {
   margin-top: auto;
 }
 
+.error-message1 {
+  display: block;
+  text-align: center;
+  color: #f06789;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: auto;
+}
+
 .city-name {
   font-size: 20px;
   margin-bottom: 10px;
@@ -376,3 +385,37 @@ body {
     width: 100%;
   }
 }
+
+.toggle-button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.city-button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: rgb(18, 147, 91);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+

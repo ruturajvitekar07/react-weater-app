@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactAnimatedWeather from "react-animated-weather";
+import { useNavigate } from "react-router-dom";
 
 function Forecast({ weather }) {
   const { data } = weather;
+  const navigate = useNavigate();
   const [forecastData, setForecastData] = useState([]);
-  const [isCelsius, setIsCelsius] = useState(true); // Track temperature unit
+  const [isCelsius, setIsCelsius] = useState(true);
 
   useEffect(() => {
     const fetchForecastData = async () => {
@@ -60,8 +62,19 @@ function Forecast({ weather }) {
     }
   };
 
+  const handleCityWeather = () => {
+    navigate('/home')
+  }
+
   return (
     <div>
+      <div className="button-container">
+        <button className="city-button" onClick={handleCityWeather}>Get Weather For Another City</button>
+        <button className="toggle-button" onClick={toggleTemperatureUnit}>
+          {isCelsius ? "Switch to °F" : "Switch to °C"}
+        </button>
+      </div>
+
       <div className="city-name">
         <h2>
           {data.city}, <span>{data.country}</span>
@@ -79,25 +92,25 @@ function Forecast({ weather }) {
           />
         )}
         {renderTemperature(data.temperature.current)}
-        <sup className="temp-deg" onClick={toggleTemperatureUnit}>
-          {isCelsius ? "°C" : "°F"} | {isCelsius ? "°F" : "°C"}
+        <sup className="temp-deg">
+          {isCelsius ? "°C" : "°F"}
         </sup>
       </div>
       <p className="weather-des">{data.condition.description}</p>
       <div className="weather-info">
         <div className="col">
-          <ReactAnimatedWeather icon="WIND" size="40"/>
+          <ReactAnimatedWeather icon="WIND" size="40" />
           <div>
-            <p className="wind">{data.wind.speed}m/s</p>
+            <p className="wind">{data.wind.speed} m/s</p>
             <p>Wind speed</p>
           </div>
         </div>
         <div className="col">
-          <ReactAnimatedWeather icon="RAIN" size="40"/>
+          <ReactAnimatedWeather icon="RAIN" size="40" />
           <div>
             <p className="humidity">{data.temperature.humidity}%</p>
             <p>Humidity</p>
-        </div>
+          </div>
         </div>
       </div>
       <div className="forecast">
@@ -115,7 +128,7 @@ function Forecast({ weather }) {
                   />
                 )}
                 <p className="day-temperature">
-                  {Math.round(day.temperature.minimum)}°/ <span>{Math.round(day.temperature.maximum)}°</span>
+                  {renderTemperature(day.temperature.minimum)}°/ <span>{renderTemperature(day.temperature.maximum)}°</span>
                 </p>
               </div>
             ))}
@@ -123,6 +136,7 @@ function Forecast({ weather }) {
       </div>
     </div>
   );
-}        
+
+}
 
 export default Forecast;
